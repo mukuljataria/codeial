@@ -8,7 +8,7 @@ console.log('router loaded');
 
 router.get('/', homeController.home)
 router.get('/posts',postController.post)
-router.get('/index', homeController.index)
+router.get('/index', homeController.index) 
 router.use('/users',require('./users'))
 
 
