@@ -1,19 +1,20 @@
 const User = require('../models/user');
 
 module.exports.profile = async function(req,res){
-
-    if(req.cookies.user_id){
-        let user = await User.findById(req.cookies.user_id)
-        if(user){
-            return res.render('users_profile',{
-                title : "User Profile",
-                user: user
-               })
+    try {
+        if(req.cookies.user_id){
+            let user = await User.findById(req.cookies.user_id)
+            if(user){
+                return res.render('users_profile',{
+                    title : "User Profile",
+                    user: user
+                });
+            }            
         }
         return res.redirect('/users/sign-in');
-
-    }else{
-        return res.redirect('/users/sign-in');
+    } catch (err) {
+        console.log('Error:', err);
+        return res.redirect('back');
     }
 
 }
@@ -91,6 +92,11 @@ module.exports.createSession = async function(req,res){
 
 
 
+}
+
+module.exports.deleteSession = async function(req,res){
+    res.clearCookie('user_id');
+    return res.redirect('back')
 }
 
 
