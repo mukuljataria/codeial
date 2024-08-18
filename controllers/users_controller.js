@@ -60,4 +60,14 @@ module.exports.createSession = function(req,res){
     return res.redirect('/users/profile');
 }
 
+module.exports.destroySession = function(req,res){
+    req.logout(function(err) {
+        if (err) {
+            console.log('Error:', err);
+            return res.redirect('back');
+        }
+        return res.redirect('/');
+    });
+}
+
 

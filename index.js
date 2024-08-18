@@ -6,11 +6,20 @@ const expressLayouts = require('express-ejs-layouts');
 const db = require('./config/mongoose');
 
 //Used for Session Cookie
-const session = require('express-session');
 const passport = require('passport');
 const passportLocal = require('./config/passport-local-strategy')
+const MongoStore = require('connect-mongo');
+const session = require('express-session');
+const sassMiddleware = require('node-sass-middleware');
 
 //middlewares
+app.use(sassMiddleware({
+    src: './assets/scss',
+    dest: './assets/css',
+    debug: true,
+    outputStyle: 'extended',
+    prefix: '/css'
+}));
 app.use(express.urlencoded());
 app.use(cookieParser());
 
@@ -27,6 +36,8 @@ app.set('layout extractScripts', true);
 app.set('view engine', 'ejs');
 app.set('views','./views')
 
+
+//* mongo store is used to store the session cookie in the db
 app.use(session({
     name: 'codeial',
     // TODO Change the secret before deployment in production mode.
@@ -35,7 +46,10 @@ app.use(session({
     resave: false, // prevent form saving cookie data again and again.
     cookie: {
         maxAge: (1000 * 60 * 100) //in ms
-    }
+    },
+    store: MongoStore.create({
+        mongoUrl: 'mongodb://localhost/codiel-development'
+    })
 }));
 
 app.use(passport.initialize());
