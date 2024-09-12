@@ -6,7 +6,12 @@ module.exports.home = async function(req,res){
 
     try{
         // Populate the user for each post
-        let posts =  await Post.find({}).populate('user')
+        let posts =  await Post.find({}).populate('user').populate({
+            path: 'comments',
+            populate: {
+                path: 'user'
+            } 
+        })
         return res.render('home', {
         title: "Home",
         posts: posts
