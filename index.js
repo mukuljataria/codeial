@@ -5,9 +5,9 @@ const port = 8000;
 const expressLayouts = require('express-ejs-layouts');
 const db = require('./config/mongoose');
 
-//Used for Session Cookie
 const passport = require('passport');
 const passportLocal = require('./config/passport-local-strategy')
+//Used for Session Cookie
 const MongoStore = require('connect-mongo');
 const session = require('express-session');
 const sassMiddleware = require('node-sass-middleware');
