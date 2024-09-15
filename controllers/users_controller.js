@@ -1,9 +1,17 @@
 const User = require('../models/user');
 
-module.exports.profile = function(req,res){
-   return res.render('users_profile',{
-    title : "Profile"
-   })
+module.exports.profile = async function(req,res){
+    try{
+        let user = await User.findById(req.params.id)
+        return res.render('users_profile',{
+            title : "Profile",
+            profile_user: user
+           })
+
+    }catch(err){
+        console.log("Error Location User Profile")
+        return res.redirect('back')
+    }   
 }
 
 module.exports.privacy = function(req,res){
