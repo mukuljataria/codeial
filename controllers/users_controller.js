@@ -18,6 +18,22 @@ module.exports.privacy = function(req,res){
     res.end('<h1>User Privacy</h1>');
 }
 
+module.exports.update = async function(req,res){
+    if(req.user.id == req.params.id){
+        try{
+            let user = await User.findByIdAndUpdate(req.params.id, req.body);
+            if (user){
+               return res.redirect('back') 
+            }else{
+                console.log("User Not Matched")
+                return res.redirect('back')
+            }
+        }catch(err){
+            return res.status(401).send('Unauthorized');
+        }  
+    }
+}
+
 // render the sign up page
 module.exports.signUp = function(req,res){
     if(req.isAuthenticated()){

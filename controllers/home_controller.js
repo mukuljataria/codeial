@@ -19,11 +19,9 @@ module.exports.home = async function(req,res){
         posts: posts,
         all_users: users
         });
-    }catch{
-        console.log("Unable to Access Posts");
-        return res.render('home', {
-            title: "Home",
-        });
+    }catch(err){
+        console.log("Unable to Access Posts",err);
+        return 
     }
 
 
