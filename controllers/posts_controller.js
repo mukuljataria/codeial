@@ -29,7 +29,7 @@ module.exports.destroy = async function(req, res) {
     try {
         let post = await Post.findById(req.params.id);
         //* .id means converting the object id into string
-        if (post.user == req.user.id) {
+        if (post.user == req.user.id) { // * req.user field is set only after authentication from passport 
             try {
                 await post.deleteOne(); // Use deleteOne() instead of remove()
                 await Comment.deleteMany({ post: req.params.id });

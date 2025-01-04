@@ -17,9 +17,10 @@ module.exports.index = async function(req,res){
 
 module.exports.destroy = async function(req, res) {
     try {
+        console.log("\n----req----\n",req)
         let post = await Post.findById(req.params.id);
         //* .id means converting the object id into string
-        if (post.user == req.user.id) {
+        if (post.user == req.user.id) {   /// *  req contain user key only if , it is pre-authenticated from jwt token or cookie
             // try {
                 await post.deleteOne(); // Use deleteOne() instead of remove()
                 await Comment.deleteMany({ post: req.params.id });
