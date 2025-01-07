@@ -5,7 +5,7 @@ const User = require('../models/user');
 
 // * tell passport to use a new strategy for google login
 passport.use(new googleStrategy({
-
+// Relevent google details here
     },
     async function(accessToken, refreshToken, profile, done){
         try{
