@@ -64,14 +64,22 @@ class PostComments{
                         <p>
                             
                             <small>
+                                ${comment.user.name}
+                            </small>    
+                            <br>   
+                            ${comment.content}                 
+                            <small>
                                 <a class="delete-comment-button" href="/comments/destroy/${comment._id}">X</a>
-                            </small>
-                            
-                            ${comment.content}
+                            </small>  
                             <br>
                             <small>
-                                ${comment.user.name}
+                            
+                                <a class="toggle-like-button" data-likes="0" href="/likes/toggle/?id=${comment._id}&type=Comment">
+                                    0 Likes
+                                </a>
+                            
                             </small>
+                            
                         </p>    
 
                 </li>`);

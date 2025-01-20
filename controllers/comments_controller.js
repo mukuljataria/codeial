@@ -7,6 +7,7 @@ const Like = require('../models/like');
 
 module.exports.create = async function(req,res){
     try{
+        console.log("Inside Controller");
         let post = await Post.findById(req.body.post)
         if(post){
             try{
@@ -28,7 +29,7 @@ module.exports.create = async function(req,res){
                         } 
                         console.log("\n---JOB_Enqueued---\n",job.id)
                     })
-
+                    console.log("hello")
                     if (req.xhr){
                         // Similar for comments to fetch the user's id!
                         // comment = await comment.populate('user', 'name').execPopulate();
@@ -44,8 +45,6 @@ module.exports.create = async function(req,res){
         
         
                     req.flash('success', 'Comment published!');
-
-                    res.redirect('/'); 
                 // }
                 
             }catch(err){
