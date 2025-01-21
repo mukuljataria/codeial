@@ -19,7 +19,7 @@
                     new PostComments(data.data.post._id);
 
                     //* enable the functionality of the toggle like button on the new post
-                    // new ToggleLike($('.toggle-like-button', newPost));
+                    new ToggleLike($(' .toggle-like-button', newPost));
 
                     new Noty({
                         theme: 'relax',
@@ -53,6 +53,14 @@
                         <small>
                             <a class="delete-post-button"  href="/posts/destroy/${ post._id }">X</a>
                         </small>
+                        <br>
+                            <small>
+                            
+                                <a class="toggle-like-button" data-likes="0" href="/likes/toggle/?id=${post._id}&type=Post">
+                                    0 Likes
+                                </a>
+                            
+                            </small>                        
                     </p>
                     <div class="post-comments">
                         

@@ -11,21 +11,23 @@ module.exports.toggleLike = async function(req,res){
         if(req.query.type == "Post"){
             likeable = await Post.findById(req.query.id).populate('likes');
         }else{
-            likable = await Comment.findById(req.query.id).populate('likes');
+            likeable = await Comment.findById(req.query.id).populate('likes');
         }
 
         //* Check if a like already exists
-        let exixstingLike = await Like.findOne({
+        let existingLike = await Like.findOne({
             likeable: req.query.id,
             onModel: req.query.type,
             user: req.user._id
         })
 
+        console.log("likeable: " + likeable)
+        console.log("likeable.likes: " + likeable.likes)
         
         //* If like exists, delete it
-        if (exixstingLike){
-            await likeable.likes.pull(exixstingLike._id)
-            await likeable.save();
+        if (existingLike){
+            likeable.likes.pull(existingLike._id)
+            likeable.save();
             await existingLike.deleteOne();
             deleted = true;
         }else{
@@ -35,8 +37,8 @@ module.exports.toggleLike = async function(req,res){
                 likeable: req.query.id,
                 onModel: req.query.type
             });
-            await likeable.likes.push(newLike._id);
-            await likeable.save()
+            likeable.likes.push(newLike._id);
+            likeable.save()
         }
 
         return res.json(200,{
