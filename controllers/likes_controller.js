@@ -29,7 +29,6 @@ module.exports.toggleLike = async function(req,res){
             console.log("\n---Inside-exixstingLike -----\n")
             likeable.likes.pull(exixstingLike._id)
             likeable.save();
-            
             existingLike.remove();
             deleted = true;
         }else{

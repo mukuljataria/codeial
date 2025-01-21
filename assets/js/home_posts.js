@@ -44,13 +44,14 @@
                     <p>
                         
                         <small>
-                            <a class="delete-post-button"  href="/posts/destroy/${ post._id }">X</a>
+                        ${ post.user.name }
                         </small>
+                        <br>
                        
                         ${ post.content }
-                        <br>
+                        
                         <small>
-                        ${ post.user.name }
+                            <a class="delete-post-button"  href="/posts/destroy/${ post._id }">X</a>
                         </small>
                     </p>
                     <div class="post-comments">
