@@ -1,3 +1,16 @@
+const fs = require('fs');
+const rfs = require('rotating-file-stream').createStream;
+const path = require('path');
+const internal = require('stream');
+
+const logDirectory = path.join(__dirname, '../production_logs');
+fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory);
+
+const accessLogStream = rfs('access.log',{
+    interval: '1d',
+    path: logDirectory
+});
+
 const development = {
     name: 'development',
     asset_path: './assets',
@@ -16,7 +29,11 @@ const development = {
     google_client_id: "960830076718-ua69pcffv0av4ir566b68ao4g3escr1t.apps.googleusercontent.com",
     google_client_secret: "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",
     google_call_back_url: "http://localhost:8000/users/auth/google/callback",
-    jwt_secret: 'codeial'
+    jwt_secret: 'codeial',
+    morgan: {
+        mode: 'dev',
+        options: {stream: accessLogStream}
+    }
 }
 
 process.env.CODEIAL_ASSET_PATH = './assets'
@@ -39,7 +56,11 @@ const production = {
     google_client_id: process.env.CODEIAL_GOOGLE_CLIENT_ID,
     google_client_secret: process.env.CODEIAL_GOOGLE_CLIENT_SECRET,
     google_call_back_url: process.env.CODEIAL_GOOGLE_CALLBACK_URL,
-    jwt_secret: process.env.CODEIAL_JWT_SECRET
+    jwt_secret: process.env.CODEIAL_JWT_SECRET,
+    morgan: {
+        mode: 'combined',
+        options: {stream: accessLogStream}
+    }
 }
 
 
