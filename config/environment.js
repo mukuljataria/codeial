@@ -36,7 +36,8 @@ const development = {
     }
 }
 
-process.env.CODEIAL_ASSET_PATH = './assets'
+process.env.CODEIAL_ASSET_PATH = './public/assets'
+// process.env.CODEIAL_ASSET_PATH = './assets'
 
 const production = {
     name: 'production',
